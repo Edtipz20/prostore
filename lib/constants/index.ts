@@ -1,3 +1,5 @@
+import { email } from "zod";
+
 export const APP_NAME = process.env.NEXT_PUBLIC_APP_NAME || "Prostore";
 
 export const APP_DESCRIPTION =
@@ -9,3 +11,8 @@ export const SERVER_URL =
 
 export const LATEST_PRODUTCS_LIMIT =
   Number(process.env.LATEST_PRODUCTS_LIMIT) || 4;
+
+export const signInDefaultValues = {
+  email: "",
+  password: "",
+};
