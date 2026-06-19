@@ -3,7 +3,6 @@ import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
-  DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
@@ -18,7 +17,7 @@ const UserButton = async () => {
   if (!session)
     return (
       <Button asChild>
-        <Link href="sign-in">
+        <Link href="/sign-in">
           <UserIcon /> Sign In
         </Link>
       </Button>
