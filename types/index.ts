@@ -1,7 +1,7 @@
 import {
   cartItemSchema,
   insertCartSchema,
-  insertOderSchema,
+  insertOrderSchema,
   insertOrderItemSchema,
   insertProductSchema,
   paymentMethodSchema,
@@ -20,7 +20,7 @@ export type Cart = z.infer<typeof insertCartSchema>;
 export type ShippingAddress = z.infer<typeof shippingAddressSchema>;
 export type PaymentMethod = z.infer<typeof paymentMethodSchema>;
 export type OrderItem = z.infer<typeof insertOrderItemSchema>;
-export type Order = z.infer<typeof insertOderSchema> & {
+export type Order = z.infer<typeof insertOrderSchema> & {
   id: string;
   createdAt: Date;
   isPaid: boolean;
