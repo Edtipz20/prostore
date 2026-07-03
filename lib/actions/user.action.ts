@@ -12,6 +12,7 @@ import { hashSync } from "bcrypt-ts-edge";
 import { isRedirectError } from "next/dist/client/components/redirect-error";
 import { formatError } from "../utils";
 import { PaymentMethod, ShippingAddress } from "@/types";
+import { revalidatePath } from "next/cache";
 
 // Sign in the user with credentials
 export async function signInWithCredentials(
@@ -117,7 +118,6 @@ export async function updateUserPaymentMethod(data: PaymentMethod) {
     const currentUser = await prisma.user.findFirst({
       where: { id: session?.user?.id },
     });
-    console.log(data);
     if (!currentUser) throw new Error("User not found");
 
     const paymentMethod = paymentMethodSchema.parse(data);
@@ -130,6 +130,30 @@ export async function updateUserPaymentMethod(data: PaymentMethod) {
     return {
       success: true,
       message: "User's payment method updated successfully",
+    };
+  } catch (error) {
+    return { success: false, message: formatError(error) };
+  }
+}
+
+// Updating user profile
+export async function updateProfile(user: { name: string; email: string }) {
+  try {
+    const session = await auth();
+    const currentUser = await prisma.user.findFirst({
+      where: { id: session?.user?.id },
+    });
+    if (!currentUser) throw new Error("User not found");
+
+    await prisma.user.update({
+      where: { id: currentUser.id },
+      data: { name: user.name },
+    });
+
+    revalidatePath("/user/profile");
+    return {
+      success: true,
+      message: "User updated successfully",
     };
   } catch (error) {
     return { success: false, message: formatError(error) };
