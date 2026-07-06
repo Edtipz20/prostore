@@ -61,6 +61,12 @@ const CURRENCY_FORMATTER = new Intl.NumberFormat("en-US", {
   minimumFractionDigits: 2,
 });
 
+// Format Number
+const NUMBER_FORMAT = new Intl.NumberFormat("en-US");
+export function formatNumber(number: number) {
+  return NUMBER_FORMAT.format(number);
+}
+
 // Format currency useing the formatter above
 export function formatCurreny(amount: number | string | null) {
   if (typeof amount === "number") {

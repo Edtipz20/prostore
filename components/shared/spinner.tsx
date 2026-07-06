@@ -1,7 +1,7 @@
 import Image from "next/image";
 import loader from "@/public/images/loader.gif";
 
-const LoadingPage = () => {
+const Spinner = () => {
   return (
     <div
       style={{
@@ -17,4 +17,4 @@ const LoadingPage = () => {
   );
 };
 
-export default LoadingPage;
+export default Spinner;

@@ -25,7 +25,7 @@ const Pagination = ({ page, totalPages, urlParamName }: PaginationProps) => {
     router.push(newUrl);
   };
   return (
-    <div className="flex gap-2 mt-3">
+    <div className="flex gap-2 justify-end">
       <Button
         size="lg"
         variant="outline"

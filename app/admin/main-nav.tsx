@@ -38,10 +38,8 @@ const MainNav = ({
           key={link.href}
           href={link.href}
           className={cn(
-            "text-sm font-medium p-2 rounded-sm transition-colors hover:text-primary",
-            pathname.includes(link.href)
-              ? "bg-muted-foreground text-accent"
-              : "",
+            "text-sm font-medium p-2 rounded-sm transition-colors text-muted-foreground hover:text-primary",
+            pathname.includes(link.href) ? "text-primary" : "",
           )}
         >
           {link.title}

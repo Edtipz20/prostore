@@ -40,13 +40,21 @@ export async function addItemToCart(data: CartItem) {
     const cart = await getMyCart();
 
     // Parse and validate item
-    const item = cartItemSchema.parse(data);
+    const parsedItem = cartItemSchema.parse(data);
 
     // Get product from database
     const product = await prisma.product.findFirst({
-      where: { id: item.productId },
+      where: { id: parsedItem.productId },
     });
     if (!product) throw new Error("Product not found");
+
+    const item = {
+      ...parsedItem,
+      name: product.name,
+      slug: product.slug,
+      image: product.images[0],
+      price: product.price.toString(),
+    };
 
     if (!cart) {
       // Create new cart object

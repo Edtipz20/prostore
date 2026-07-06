@@ -5,7 +5,7 @@ import Link from "next/link";
 import MainNav from "./main-nav";
 import { Input } from "@/components/ui/input";
 
-export default function AdminLayout({
+export default async function AdminLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
