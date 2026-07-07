@@ -4,7 +4,6 @@ import { Button } from "@/components/ui/button";
 import { SunMoon, SunIcon, MoonIcon, Check } from "lucide-react";
 import {
   DropdownMenu,
-  DropdownMenuCheckboxItem,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuLabel,
