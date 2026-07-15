@@ -248,7 +248,7 @@ export async function updateOrderToPaid({
   if (!updatedOrder) throw new Error("Order not found");
 }
 
-// Get all the order
+// Get all the orders
 export async function getMyOrders({
   limit = PAGE_SIZE,
   page,
@@ -326,11 +326,26 @@ export async function getOrderSummary() {
 export async function getAllOrder({
   limit = PAGE_SIZE,
   page,
+  query,
 }: {
   limit?: number;
   page: number;
+  query: string;
 }) {
+  const queryFilter: Prisma.OrderWhereInput =
+    query && query !== "all"
+      ? {
+          user: {
+            name: {
+              contains: query,
+              mode: "insensitive",
+            } as Prisma.StringFilter,
+          },
+        }
+      : {};
+
   const data = await prisma.order.findMany({
+    where: { ...queryFilter },
     orderBy: { createdAt: "desc" },
     take: limit,
     skip: (page - 1) * limit,

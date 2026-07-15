@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import MainNav from "./main-nav";
 import { Input } from "@/components/ui/input";
+import AdminSearch from "./admin-search";
 
 export default async function AdminLayout({
   children,
@@ -27,13 +28,7 @@ export default async function AdminLayout({
             <MainNav className="mx-6" />
             {/* Menu */}
             <div className="ml-auto items-center flex space-x-4">
-              <div>
-                <Input
-                  type="search"
-                  placeholder="Search..."
-                  className="md:w-25 lg:w-75"
-                />
-              </div>
+              <AdminSearch />
               <Menu />
             </div>
           </div>

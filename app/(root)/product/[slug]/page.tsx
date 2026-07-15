@@ -6,6 +6,30 @@ import { Card, CardContent } from "@/components/ui/card";
 import { getProductBySlug } from "@/lib/actions/product.actions";
 import { notFound } from "next/navigation";
 import { getMyCart } from "@/lib/actions/cart.actions";
+import { prisma } from "@/db/prisma";
+
+// Metadata
+export async function generateMetadata(props: {
+  params: Promise<{ slug: string }>;
+}) {
+  const { slug } = await props.params;
+  const product = await prisma.product.findFirst({
+    where: { slug: slug },
+  });
+  return {
+    title: product?.name,
+    description: product?.description,
+    openGraph: {
+      title: product?.name,
+      description: product?.description,
+      images: [product?.images],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: product?.name,
+    },
+  };
+}
 
 const ProductDetailsPage = async (props: {
   params: Promise<{ slug: string }>;
