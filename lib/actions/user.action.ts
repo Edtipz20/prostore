@@ -17,6 +17,7 @@ import { revalidatePath } from "next/cache";
 import { PAGE_SIZE } from "../constants";
 import z from "zod";
 import { Prisma } from "../generated/prisma";
+import { requireAdminAction } from "../auth-guard";
 
 // Sign in the user with credentials
 export async function signInWithCredentials(
@@ -177,6 +178,7 @@ export async function getAllUsers({
   page: number;
   query: string;
 }) {
+  await requireAdminAction();
   const queryFilter: Prisma.UserWhereInput =
     query && query !== "all"
       ? {
@@ -204,6 +206,7 @@ export async function getAllUsers({
 // Delete user
 export async function deleteUser(id: string) {
   try {
+    await requireAdminAction();
     await prisma.user.delete({
       where: { id },
     });
@@ -219,6 +222,10 @@ export async function deleteUser(id: string) {
 
 export async function updateUser(user: z.infer<typeof updateUserSchema>) {
   try {
+    const session = await requireAdminAction();
+    if (session.user.id === user.id && user.role !== "admin") {
+      throw new Error("You can't remove your own admin role");
+    }
     await prisma.user.update({
       where: { id: user.id },
       data: { name: user.name, role: user.role },

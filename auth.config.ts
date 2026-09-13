@@ -31,18 +31,18 @@ export const authConfig = {
       ];
 
       // Get pathname from the req URL object
-      // const { pathname } = request.nextUrl;
+      const { pathname } = request.nextUrl;
 
       // CHeck if user is not authenticated and accessing a protected path
-      // if (!auth && protectPaths.some((path) => path.test(pathname)))
-      //   return false;
+      if (!auth && protectPaths.some((path) => path.test(pathname)))
+        return false;
 
       // SECURITY: /admin requires the admin role, not just any signed-in
       // user. This is a fast edge-level check; app/admin/layout.tsx does
       // the authoritative check server-side as defense in depth.
-      // if (/\/admin/.test(pathname) && auth?.user?.role !== "admin") {
-      //   return false;
-      // }
+      if (/\/admin/.test(pathname) && auth?.user?.role !== "admin") {
+        return NextResponse.redirect(new URL("/unauthorized", request.url));
+      }
 
       // Check for session cart cookie
       if (!request.cookies.get("sessionCartId")) {

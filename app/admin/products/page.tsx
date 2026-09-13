@@ -11,6 +11,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { deleteProduct, getAllProducts } from "@/lib/actions/product.actions";
+import { requireAdmin } from "@/lib/auth-guard";
 import { formatCurreny, formatId } from "@/lib/utils";
 import Link from "next/link";
 
@@ -21,6 +22,7 @@ const AdminProductsPage = async (props: {
     category: string;
   }>;
 }) => {
+  await requireAdmin();
   const searchParams = await props.searchParams;
 
   const page = Number(searchParams.page) || 1;

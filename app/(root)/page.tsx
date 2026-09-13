@@ -7,6 +7,8 @@ import { Suspense } from "react";
 import LoadingPage from "./loading";
 import ProductCarousel from "@/components/shared/product/product-carousel";
 import ViewAllProductsButton from "@/components/view-all-products-button";
+import IconBoxes from "@/components/icon-boxes";
+import DealCountdown from "@/components/deal-countdown";
 
 export const revalidate = 3600;
 
@@ -22,6 +24,8 @@ const Homepage = async () => {
         <ProductList data={latestProducts} title="Newest Arrivals" />
         <ViewAllProductsButton />
       </Suspense>
+      <DealCountdown />
+      <IconBoxes />
     </>
   );
 };

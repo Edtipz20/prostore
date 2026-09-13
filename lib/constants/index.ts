@@ -10,6 +10,8 @@ export const SERVER_URL =
 export const LATEST_PRODUTCS_LIMIT =
   Number(process.env.LATEST_PRODUCTS_LIMIT) || 4;
 
+export const SENDER_EMAIL = process.env.SENDER_EMAIL || "onboarding@resend.dev";
+
 export const signInDefaultValues = {
   email: "admin@example.com",
   password: "123456",
@@ -56,3 +58,9 @@ export const productDefaulValues = {
 export const USER_ROLE = process.env.USER_ROLE
   ? process.env.USER_ROLE.split(", ")
   : ["admin", "user"];
+
+export const reviewFormDefaultValues = {
+  title: "",
+  comment: "",
+  rating: 0,
+};

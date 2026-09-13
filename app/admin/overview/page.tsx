@@ -23,6 +23,8 @@ const AdminOverviewPage = async () => {
   await requireAdmin();
   const summary = await getOrderSummary();
 
+  if (!summary.totalSales) return <div>Error loading total sales </div>;
+
   return (
     <div className="space-y-2">
       <h1 className="h2-bold">Dashboard</h1>
